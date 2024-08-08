@@ -1,5 +1,4 @@
-package ru.practicum.shareit.user;
-
+package ru.practicum.shareit.user.dto;
 
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
@@ -12,9 +11,7 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class User {
-    private Long id;
-
+public class CreateUserDto {
     @NotNull
     @NotBlank
     @NotEmpty
