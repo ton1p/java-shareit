@@ -3,6 +3,7 @@ package ru.practicum.shareit.exception;
 import org.springframework.http.HttpStatus;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
+import org.springframework.web.bind.MissingRequestHeaderException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import ru.practicum.shareit.error.ErrorResponse;
@@ -34,5 +35,17 @@ public class ErrorHandler {
     @ExceptionHandler(ConflictException.class)
     ErrorResponse handleConflictException(ConflictException e) {
         return new ErrorResponse(HttpStatus.CONFLICT.value(), List.of(e.getMessage()));
+    }
+
+    @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
+    @ExceptionHandler(InternalServerErrorException.class)
+    ErrorResponse handleInternalServerErrorException(InternalServerErrorException e) {
+        return new ErrorResponse(HttpStatus.INTERNAL_SERVER_ERROR.value(), List.of(e.getMessage()));
+    }
+
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    @ExceptionHandler(MissingRequestHeaderException.class)
+    ErrorResponse handleMissingRequestHeaderException(MissingRequestHeaderException e) {
+        return new ErrorResponse(HttpStatus.BAD_REQUEST.value(), List.of(e.getMessage()));
     }
 }
