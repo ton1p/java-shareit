@@ -54,16 +54,7 @@ public class InMemoryItemRepository implements ItemRepository {
 
     @Override
     public Item update(Long itemId, Item item) {
-        Item found = items.get(itemId);
-        if (found.getName() != null && !found.getName().isEmpty() && !found.getName().isBlank()) {
-            found.setName(item.getName());
-        }
-        if (found.getDescription() != null && !found.getDescription().isEmpty() && !found.getDescription().isBlank()) {
-            found.setDescription(item.getDescription());
-        }
-        if (found.getAvailable() != null) {
-            found.setAvailable(item.getAvailable());
-        }
-        return found;
+        items.put(itemId, item);
+        return item;
     }
 }

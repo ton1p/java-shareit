@@ -44,12 +44,17 @@ public class UserServiceImpl implements UserService {
         if (userRepository.findByEmail(userDto.getEmail()).isPresent()) {
             throw new ConflictException("User with this email already exists");
         }
-        Optional<User> user = userRepository.findById(id);
-        if (user.isEmpty()) {
+        User user = userRepository.findById(id).orElse(null);
+        if (user == null) {
             throw new NotFoundException(NOT_FOUND_MESSAGE);
         }
-        User updated = userRepository.update(id, UserMapper.INSTANCE.userDtoToUser(userDto));
-        return UserMapper.INSTANCE.userToUserDto(updated);
+        if (userDto.getName() != null && !userDto.getName().trim().isEmpty()) {
+            user.setName(userDto.getName());
+        }
+        if (userDto.getEmail() != null && !userDto.getEmail().trim().isEmpty()) {
+            user.setEmail(userDto.getEmail());
+        }
+        return UserMapper.INSTANCE.userToUserDto(userRepository.update(id, user));
     }
 
     @Override

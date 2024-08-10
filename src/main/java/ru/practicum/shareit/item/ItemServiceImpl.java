@@ -50,12 +50,19 @@ public class ItemServiceImpl implements ItemService {
             throw new NotFoundException("User not found");
         }
 
-        Optional<Item> item = itemRepository.getById(itemId);
-        if (item.isEmpty()) {
+        Item item = itemRepository.getById(itemId).orElse(null);
+        if (item == null) {
             throw new NotFoundException("Item not found");
         }
-
-        Item updated = itemRepository.update(itemId, ItemMapper.INSTANCE.itemDtoToItem(itemDto));
-        return ItemMapper.INSTANCE.itemToItemDto(updated);
+        if (item.getName() != null && !item.getName().trim().isEmpty()) {
+            item.setName(itemDto.getName());
+        }
+        if (item.getDescription() != null && !item.getDescription().trim().isEmpty()) {
+            item.setDescription(itemDto.getDescription());
+        }
+        if (item.getAvailable() != null) {
+            item.setAvailable(itemDto.getAvailable());
+        }
+        return ItemMapper.INSTANCE.itemToItemDto(itemRepository.update(itemId, item));
     }
 }

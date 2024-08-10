@@ -43,14 +43,8 @@ public class InMemoryUserRepository implements UserRepository {
 
     @Override
     public User update(Long id, User user) {
-        User found = userMap.get(id);
-        if (user.getEmail() != null && !user.getEmail().isBlank() && !user.getEmail().isEmpty()) {
-            found.setEmail(user.getEmail());
-        }
-        if (user.getName() != null && !user.getName().isBlank() && !user.getName().isEmpty()) {
-            found.setName(user.getName());
-        }
-        return found;
+        userMap.put(id, user);
+        return user;
     }
 
     @Override
