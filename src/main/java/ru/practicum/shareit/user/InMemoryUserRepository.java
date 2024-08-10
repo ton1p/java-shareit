@@ -1,8 +1,6 @@
 package ru.practicum.shareit.user;
 
 import org.springframework.stereotype.Repository;
-import ru.practicum.shareit.user.dto.CreateUserDto;
-import ru.practicum.shareit.user.dto.UserDto;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -36,8 +34,7 @@ public class InMemoryUserRepository implements UserRepository {
     }
 
     @Override
-    public User create(CreateUserDto createUserDto) {
-        User user = UserMapper.INSTANCE.createUserDtoToUser(createUserDto);
+    public User create(User user) {
         id++;
         user.setId(id);
         userMap.put(user.getId(), user);
@@ -45,15 +42,15 @@ public class InMemoryUserRepository implements UserRepository {
     }
 
     @Override
-    public User update(Long id, UserDto userDto) {
-        User user = userMap.get(id);
-        if (userDto.getEmail() != null && !userDto.getEmail().isBlank() && !userDto.getEmail().isEmpty()) {
-            user.setEmail(userDto.getEmail());
+    public User update(Long id, User user) {
+        User found = userMap.get(id);
+        if (user.getEmail() != null && !user.getEmail().isBlank() && !user.getEmail().isEmpty()) {
+            found.setEmail(user.getEmail());
         }
-        if (userDto.getName() != null && !userDto.getName().isBlank() && !userDto.getName().isEmpty()) {
-            user.setName(userDto.getName());
+        if (user.getName() != null && !user.getName().isBlank() && !user.getName().isEmpty()) {
+            found.setName(user.getName());
         }
-        return user;
+        return found;
     }
 
     @Override

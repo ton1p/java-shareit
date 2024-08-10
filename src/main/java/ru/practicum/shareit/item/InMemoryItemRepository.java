@@ -1,8 +1,6 @@
 package ru.practicum.shareit.item;
 
 import org.springframework.stereotype.Repository;
-import ru.practicum.shareit.item.dto.CreateItemDto;
-import ru.practicum.shareit.item.dto.ItemDto;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -46,9 +44,8 @@ public class InMemoryItemRepository implements ItemRepository {
     }
 
     @Override
-    public Item create(Long userId, CreateItemDto createItemDto) {
+    public Item create(Long userId, Item item) {
         id++;
-        Item item = ItemMapper.INSTANCE.createItemDtoToItem(createItemDto);
         item.setId(id);
         item.setOwnerId(userId);
         items.put(item.getId(), item);
@@ -56,17 +53,17 @@ public class InMemoryItemRepository implements ItemRepository {
     }
 
     @Override
-    public Item update(Long itemId, ItemDto itemDto) {
-        Item item = items.get(itemId);
-        if (item.getName() != null && !item.getName().isEmpty() && !item.getName().isBlank()) {
-            item.setName(itemDto.getName());
+    public Item update(Long itemId, Item item) {
+        Item found = items.get(itemId);
+        if (found.getName() != null && !found.getName().isEmpty() && !found.getName().isBlank()) {
+            found.setName(item.getName());
         }
-        if (item.getDescription() != null && !item.getDescription().isEmpty() && !item.getDescription().isBlank()) {
-            item.setDescription(itemDto.getDescription());
+        if (found.getDescription() != null && !found.getDescription().isEmpty() && !found.getDescription().isBlank()) {
+            found.setDescription(item.getDescription());
         }
-        if (item.getAvailable() != null) {
-            item.setAvailable(itemDto.getAvailable());
+        if (found.getAvailable() != null) {
+            found.setAvailable(item.getAvailable());
         }
-        return item;
+        return found;
     }
 }

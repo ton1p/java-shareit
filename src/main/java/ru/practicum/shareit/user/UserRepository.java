@@ -1,8 +1,5 @@
 package ru.practicum.shareit.user;
 
-import ru.practicum.shareit.user.dto.CreateUserDto;
-import ru.practicum.shareit.user.dto.UserDto;
-
 import java.util.List;
 import java.util.Optional;
 
@@ -13,9 +10,9 @@ public interface UserRepository {
 
     Optional<User> findByEmail(final String email);
 
-    User create(final CreateUserDto createUserDto);
+    User create(final User user);
 
-    User update(final Long id, final UserDto userDto);
+    User update(final Long id, final User user);
 
     void delete(final Long id);
 }

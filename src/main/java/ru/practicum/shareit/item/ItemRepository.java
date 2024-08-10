@@ -1,8 +1,5 @@
 package ru.practicum.shareit.item;
 
-import ru.practicum.shareit.item.dto.CreateItemDto;
-import ru.practicum.shareit.item.dto.ItemDto;
-
 import java.util.List;
 import java.util.Optional;
 
@@ -13,7 +10,7 @@ public interface ItemRepository {
 
     Optional<Item> getById(Long id);
 
-    Item create(Long userId, CreateItemDto createItemDto);
+    Item create(Long userId, Item item);
 
-    Item update(Long itemId, ItemDto itemDto);
+    Item update(Long itemId, Item item);
 }

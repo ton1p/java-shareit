@@ -35,7 +35,7 @@ public class UserServiceImpl implements UserService {
         if (userRepository.findByEmail(createUserDto.getEmail()).isPresent()) {
             throw new ConflictException("User with this email already exists");
         }
-        User user = userRepository.create(createUserDto);
+        User user = userRepository.create(UserMapper.INSTANCE.createUserDtoToUser(createUserDto));
         return UserMapper.INSTANCE.userToUserDto(user);
     }
 
@@ -48,7 +48,7 @@ public class UserServiceImpl implements UserService {
         if (user.isEmpty()) {
             throw new NotFoundException(NOT_FOUND_MESSAGE);
         }
-        User updated = userRepository.update(id, userDto);
+        User updated = userRepository.update(id, UserMapper.INSTANCE.userDtoToUser(userDto));
         return UserMapper.INSTANCE.userToUserDto(updated);
     }
 

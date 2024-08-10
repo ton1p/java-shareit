@@ -39,7 +39,8 @@ public class ItemServiceImpl implements ItemService {
         if (user.isEmpty()) {
             throw new NotFoundException("User not found");
         }
-        return ItemMapper.INSTANCE.itemToItemDto(itemRepository.create(userId, createItemDto));
+        Item item = itemRepository.create(userId, ItemMapper.INSTANCE.createItemDtoToItem(createItemDto));
+        return ItemMapper.INSTANCE.itemToItemDto(item);
     }
 
     @Override
@@ -54,6 +55,7 @@ public class ItemServiceImpl implements ItemService {
             throw new NotFoundException("Item not found");
         }
 
-        return ItemMapper.INSTANCE.itemToItemDto(itemRepository.update(itemId, itemDto));
+        Item updated = itemRepository.update(itemId, ItemMapper.INSTANCE.itemDtoToItem(itemDto));
+        return ItemMapper.INSTANCE.itemToItemDto(updated);
     }
 }
