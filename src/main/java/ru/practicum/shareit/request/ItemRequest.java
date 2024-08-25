@@ -10,7 +10,7 @@ import jakarta.persistence.Table;
 import ru.practicum.shareit.user.User;
 
 @Entity
-@Table(name = "requests")
+@Table(name = "request")
 public class ItemRequest {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

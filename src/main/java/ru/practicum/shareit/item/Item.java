@@ -12,7 +12,7 @@ import lombok.Setter;
 import ru.practicum.shareit.user.User;
 
 @Entity
-@Table(name = "items")
+@Table(name = "item")
 @Getter
 @Setter
 public class Item {

@@ -8,15 +8,15 @@ import lombok.Data;
 @Data
 public class CreateBookingDto {
     @NotNull
-    Long itemId;
+    private Long itemId;
 
     @NotNull
     @NotEmpty
     @NotBlank
-    String start;
+    private String start;
 
     @NotNull
     @NotEmpty
     @NotBlank
-    String end;
+    private String end;
 }

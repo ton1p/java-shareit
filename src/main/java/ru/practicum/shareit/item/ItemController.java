@@ -68,7 +68,7 @@ public class ItemController extends ErrorHandler {
     public CommentDto addComment(
             @RequestHeader("X-Sharer-User-Id") Long userId,
             @PathVariable Long itemId,
-            @RequestBody CreateCommentDto createCommentDto
+            @RequestBody @Valid CreateCommentDto createCommentDto
     ) {
         return itemService.addComment(userId, itemId, createCommentDto);
     }
