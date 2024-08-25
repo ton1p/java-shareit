@@ -12,8 +12,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import ru.practicum.shareit.exception.ErrorHandler;
+import ru.practicum.shareit.item.comment.dto.CommentDto;
+import ru.practicum.shareit.item.comment.dto.CreateCommentDto;
 import ru.practicum.shareit.item.dto.CreateItemDto;
 import ru.practicum.shareit.item.dto.ItemDto;
+import ru.practicum.shareit.item.dto.ItemOwnerDto;
 
 import java.util.List;
 
@@ -29,11 +32,11 @@ public class ItemController extends ErrorHandler {
     }
 
     @GetMapping("/{itemId}")
-    public ItemDto getItem(
+    public ItemOwnerDto getItem(
             @RequestHeader("X-Sharer-User-Id") Long userId,
             @PathVariable("itemId") Long itemId
     ) {
-        return itemService.getItem(itemId);
+        return itemService.getItem(userId, itemId);
     }
 
     @GetMapping("/search")
@@ -59,5 +62,14 @@ public class ItemController extends ErrorHandler {
             @RequestBody ItemDto itemDto
     ) {
         return itemService.updateItem(userId, itemId, itemDto);
+    }
+
+    @PostMapping("/{itemId}/comment")
+    public CommentDto addComment(
+            @RequestHeader("X-Sharer-User-Id") Long userId,
+            @PathVariable Long itemId,
+            @RequestBody CreateCommentDto createCommentDto
+    ) {
+        return itemService.addComment(userId, itemId, createCommentDto);
     }
 }

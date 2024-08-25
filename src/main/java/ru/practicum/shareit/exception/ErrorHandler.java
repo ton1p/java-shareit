@@ -48,4 +48,10 @@ public class ErrorHandler {
     ErrorResponse handleMissingRequestHeaderException(MissingRequestHeaderException e) {
         return new ErrorResponse(HttpStatus.BAD_REQUEST.value(), List.of(e.getMessage()));
     }
+
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    @ExceptionHandler(BadRequestException.class)
+    ErrorResponse handleBadRequestException(BadRequestException e) {
+        return new ErrorResponse(HttpStatus.BAD_REQUEST.value(), List.of(e.getMessage()));
+    }
 }
