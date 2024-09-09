@@ -9,5 +9,5 @@ import java.util.List;
 @AllArgsConstructor
 public class ErrorResponse {
     private int statusCode;
-    private List<String> errors;
+    private List<String> error;
 }
