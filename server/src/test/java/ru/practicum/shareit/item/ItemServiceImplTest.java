@@ -38,10 +38,10 @@ class ItemServiceImplTest {
         query.setParameter("id", itemDto.getId());
         Item i = query.getSingleResult();
 
-        assertThat(i.getId(), equalTo(1L));
-        assertThat(i.getName(), equalTo("test"));
-        assertThat(i.getDescription(), equalTo("test"));
-        assertThat(i.getAvailable(), equalTo(true));
+        assertThat(i.getId(), equalTo(itemDto.getId()));
+        assertThat(i.getName(), equalTo(itemDto.getName()));
+        assertThat(i.getDescription(), equalTo(itemDto.getDescription()));
+        assertThat(i.getAvailable(), equalTo(itemDto.getAvailable()));
         assertThat(i.getRequestId(), equalTo(1L));
     }
 }

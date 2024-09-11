@@ -50,7 +50,7 @@ class BookingServiceImplTest {
         query.setParameter("bookingId", createdBookingDto.getId());
         Booking booking = query.getSingleResult();
 
-        assertThat(booking.getId(), equalTo(1L));
+        assertThat(booking.getId(), equalTo(createdBookingDto.getId()));
         assertThat(booking.getBooker().getId(), equalTo(userDto.getId()));
         assertThat(booking.getItem().getId(), equalTo(itemDto.getId()));
         assertThat(booking.getStart(), equalTo(createdBookingDto.getStart()));

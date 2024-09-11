@@ -30,8 +30,8 @@ class UserServiceImplTest {
         User user = query.getSingleResult();
 
         assertNotNull(user);
-        assertEquals("test", user.getName());
-        assertEquals("test@test.com", user.getEmail());
-        assertEquals(1L, user.getId());
+        assertEquals(userDto.getId(), user.getId());
+        assertEquals(userDto.getName(), user.getName());
+        assertEquals(userDto.getEmail(), user.getEmail());
     }
 }
