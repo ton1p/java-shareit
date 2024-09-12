@@ -53,6 +53,7 @@ public class ItemServiceImpl implements ItemService {
     @Override
     public ItemOwnerDto getItem(Long userId, Long id) {
         LocalDateTime now = LocalDateTime.now();
+        userRepository.findById(userId).orElseThrow(() -> new NotFoundException(USER_NOT_FOUND_ERROR_MESSAGE));
         ItemOwnerDto item = itemRepository.findById(id)
                 .map(ItemMapper.INSTANCE::itemToItemOwnerDto)
                 .orElseThrow(() -> new NotFoundException(ITEM_NOT_FOUND_ERROR_MESSAGE));
