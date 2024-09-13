@@ -127,7 +127,7 @@ class ItemServiceImplTest {
         CreateItemDto createItemDto = new CreateItemDto("test", "test", true, 1L);
         ItemDto itemDto = itemService.createItem(userDto.getId(), createItemDto);
 
-        CreateBookingDto createBookingDto = new CreateBookingDto(itemDto.getId(), "2024-09-11T15:44:10", "2024-09-12T15:44:11");
+        CreateBookingDto createBookingDto = new CreateBookingDto(itemDto.getId(), "2024-09-11T15:44:10", "2100-09-12T15:44:11");
         bookingService.create(userDto.getId(), createBookingDto);
 
         Assertions.assertThrows(BadRequestException.class, () -> itemService.addComment(userDto.getId(), itemDto.getId(), new CreateCommentDto("test")));

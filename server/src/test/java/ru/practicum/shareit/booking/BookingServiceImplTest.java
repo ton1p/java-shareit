@@ -131,7 +131,7 @@ class BookingServiceImplTest {
     void getAllByBookerIdAndStateWithCURRENTState() {
         UserDto userDto = createUser();
         ItemDto itemDto = createItem(userDto, true);
-        CreateBookingDto createBookingDto = new CreateBookingDto(itemDto.getId(), "2024-09-11T15:44:10", "2024-09-13T15:44:11");
+        CreateBookingDto createBookingDto = new CreateBookingDto(itemDto.getId(), "2024-09-11T15:44:10", "2100-09-13T15:44:11");
         bookingService.create(userDto.getId(), createBookingDto);
         List<BookingDto> list = bookingService.getAllByBookerIdAndState(userDto.getId(), GetBookingState.CURRENT);
         Assertions.assertNotNull(list);
@@ -163,7 +163,7 @@ class BookingServiceImplTest {
     void getAllByBookerIdAndStateWithFUTUREState() {
         UserDto userDto = createUser();
         ItemDto itemDto = createItem(userDto, true);
-        CreateBookingDto createBookingDto = new CreateBookingDto(itemDto.getId(), "2024-09-14T15:44:10", "2024-09-14T15:44:11");
+        CreateBookingDto createBookingDto = new CreateBookingDto(itemDto.getId(), "2100-09-14T15:44:10", "2100-09-14T15:44:11");
         bookingService.create(userDto.getId(), createBookingDto);
         List<BookingDto> list = bookingService.getAllByBookerIdAndState(userDto.getId(), GetBookingState.FUTURE);
         Assertions.assertNotNull(list);
