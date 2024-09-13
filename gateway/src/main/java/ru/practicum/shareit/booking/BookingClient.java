@@ -7,10 +7,12 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.http.client.HttpComponentsClientHttpRequestFactory;
 import org.springframework.stereotype.Service;
 import org.springframework.web.util.DefaultUriBuilderFactory;
+import ru.practicum.shareit.booking.dto.BookingDto;
 import ru.practicum.shareit.booking.dto.CreateBookingDto;
 import ru.practicum.shareit.booking.dto.GetBookingState;
 import ru.practicum.shareit.client.BaseClient;
 
+import java.util.List;
 import java.util.Map;
 
 @Service
@@ -27,25 +29,25 @@ public class BookingClient extends BaseClient {
         );
     }
 
-    public ResponseEntity<Object> getBookings(long userId, GetBookingState state) {
+    public ResponseEntity<List<BookingDto>> getBookings(long userId, GetBookingState state) {
         return get("?state=" + state, userId);
     }
 
-    public ResponseEntity<Object> getOwnerBookings(long userId, GetBookingState state) {
+    public ResponseEntity<List<BookingDto>> getOwnerBookings(long userId, GetBookingState state) {
         return get("/owner?state=" + state, userId);
     }
 
 
-    public ResponseEntity<Object> addBooking(long userId, CreateBookingDto requestDto) {
+    public ResponseEntity<BookingDto> addBooking(long userId, CreateBookingDto requestDto) {
         return post("", userId, requestDto);
     }
 
-    public ResponseEntity<Object> updateBooking(long userId, Long bookingId, Boolean approved) {
+    public ResponseEntity<BookingDto> updateBooking(long userId, Long bookingId, Boolean approved) {
         Map<String, Object> parameters = Map.of("bookingId", bookingId, "approved", approved);
         return patch("/" + bookingId + "?approved=" + approved, userId, parameters);
     }
 
-    public ResponseEntity<Object> getBooking(long userId, Long bookingId) {
+    public ResponseEntity<BookingDto> getBooking(long userId, Long bookingId) {
         return get("/" + bookingId, userId);
     }
 }

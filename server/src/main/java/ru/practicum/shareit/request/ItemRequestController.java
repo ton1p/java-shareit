@@ -21,7 +21,7 @@ public class ItemRequestController extends ErrorHandler {
     private final ItemRequestService itemRequestService;
 
     @PostMapping
-    ItemRequestDto createRequest(
+    public ItemRequestDto createRequest(
             @RequestHeader("X-Sharer-User-Id") Long userId,
             @RequestBody final CreateItemRequestDto createItemRequestDto
     ) {
@@ -29,19 +29,19 @@ public class ItemRequestController extends ErrorHandler {
     }
 
     @GetMapping
-    List<ItemRequestDto> getOwnRequests(
+    public List<ItemRequestDto> getOwnRequests(
             @RequestHeader("X-Sharer-User-Id") final Long userId
     ) {
         return itemRequestService.getOwnRequests(userId);
     }
 
     @GetMapping("/all")
-    List<ItemRequestDto> getAllRequests() {
+    public List<ItemRequestDto> getAllRequests() {
         return itemRequestService.getAllRequests();
     }
 
     @GetMapping("/{requestId}")
-    ItemRequestDto getRequestById(@PathVariable("requestId") final Long requestId) {
+    public ItemRequestDto getRequestById(@PathVariable("requestId") final Long requestId) {
         return itemRequestService.getRequestById(requestId);
     }
 }

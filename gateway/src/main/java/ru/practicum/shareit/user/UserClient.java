@@ -11,6 +11,8 @@ import ru.practicum.shareit.client.BaseClient;
 import ru.practicum.shareit.user.dto.CreateUserDto;
 import ru.practicum.shareit.user.dto.UserDto;
 
+import java.util.List;
+
 @Service
 public class UserClient extends BaseClient {
     private static final String API_PREFIX = "/users";
@@ -23,19 +25,19 @@ public class UserClient extends BaseClient {
                 .build());
     }
 
-    public ResponseEntity<Object> getAll() {
+    public ResponseEntity<List<UserDto>> getAll() {
         return get("");
     }
 
-    public ResponseEntity<Object> getById(final Long userId) {
+    public ResponseEntity<UserDto> getById(final Long userId) {
         return get("/" + userId, userId);
     }
 
-    public ResponseEntity<Object> create(final CreateUserDto createUserDto) {
+    public ResponseEntity<UserDto> create(final CreateUserDto createUserDto) {
         return post("", createUserDto);
     }
 
-    public ResponseEntity<Object> update(final Long userId, final UserDto userDto) {
+    public ResponseEntity<UserDto> update(final Long userId, final UserDto userDto) {
         return patch("/" + userId, userId, userDto);
     }
 

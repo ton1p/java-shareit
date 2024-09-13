@@ -14,9 +14,12 @@ import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import ru.practicum.shareit.exception.ErrorHandler;
+import ru.practicum.shareit.item.comment.dto.CommentDto;
 import ru.practicum.shareit.item.comment.dto.CreateCommentDto;
 import ru.practicum.shareit.item.dto.CreateItemDto;
 import ru.practicum.shareit.item.dto.ItemDto;
+
+import java.util.List;
 
 @Controller
 @RequestMapping("/items")
@@ -27,12 +30,12 @@ public class ItemController extends ErrorHandler {
     private final ItemClient itemClient;
 
     @GetMapping
-    public ResponseEntity<Object> getItems(@RequestHeader("X-Sharer-User-Id") Long userId) {
+    public ResponseEntity<List<ItemDto>> getItems(@RequestHeader("X-Sharer-User-Id") Long userId) {
         return itemClient.getItems(userId);
     }
 
     @GetMapping("/{itemId}")
-    public ResponseEntity<Object> getItem(
+    public ResponseEntity<ItemDto> getItem(
             @RequestHeader("X-Sharer-User-Id") Long userId,
             @PathVariable("itemId") Long itemId
     ) {
@@ -40,7 +43,7 @@ public class ItemController extends ErrorHandler {
     }
 
     @GetMapping("/search")
-    public ResponseEntity<Object> search(
+    public ResponseEntity<List<ItemDto>> search(
             @RequestHeader("X-Sharer-User-Id") Long userId,
             @RequestParam(value = "text", defaultValue = "") String text
     ) {
@@ -48,7 +51,7 @@ public class ItemController extends ErrorHandler {
     }
 
     @PostMapping
-    public ResponseEntity<Object> createItem(
+    public ResponseEntity<ItemDto> createItem(
             @RequestHeader("X-Sharer-User-Id") Long userId,
             @RequestBody @Valid CreateItemDto createItemDto
     ) {
@@ -56,7 +59,7 @@ public class ItemController extends ErrorHandler {
     }
 
     @PatchMapping("/{itemId}")
-    public ResponseEntity<Object> updateItem(
+    public ResponseEntity<ItemDto> updateItem(
             @RequestHeader("X-Sharer-User-Id") Long userId,
             @PathVariable Long itemId,
             @RequestBody ItemDto itemDto
@@ -65,7 +68,7 @@ public class ItemController extends ErrorHandler {
     }
 
     @PostMapping("/{itemId}/comment")
-    public ResponseEntity<Object> addComment(
+    public ResponseEntity<CommentDto> addComment(
             @RequestHeader("X-Sharer-User-Id") Long userId,
             @PathVariable Long itemId,
             @RequestBody @Valid CreateCommentDto createCommentDto

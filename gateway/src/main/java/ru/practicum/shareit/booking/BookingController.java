@@ -12,9 +12,12 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import ru.practicum.shareit.booking.dto.BookingDto;
 import ru.practicum.shareit.booking.dto.CreateBookingDto;
 import ru.practicum.shareit.booking.dto.GetBookingState;
 import ru.practicum.shareit.exception.ErrorHandler;
+
+import java.util.List;
 
 @Controller
 @RequestMapping(path = "/bookings")
@@ -24,7 +27,7 @@ public class BookingController extends ErrorHandler {
     private final BookingClient bookingClient;
 
     @PostMapping
-    public ResponseEntity<Object> addBooking(
+    public ResponseEntity<BookingDto> addBooking(
             @RequestHeader("X-Sharer-User-Id") Long userId,
             @RequestBody CreateBookingDto createBookingDto
     ) {
@@ -32,7 +35,7 @@ public class BookingController extends ErrorHandler {
     }
 
     @PatchMapping("/{bookingId}")
-    public ResponseEntity<Object> updateBooking(
+    public ResponseEntity<BookingDto> updateBooking(
             @RequestHeader("X-Sharer-User-Id") Long userId,
             @PathVariable Long bookingId,
             @RequestParam(defaultValue = "false") Boolean approved
@@ -41,7 +44,7 @@ public class BookingController extends ErrorHandler {
     }
 
     @GetMapping("/{bookingId}")
-    public ResponseEntity<Object> getBooking(
+    public ResponseEntity<BookingDto> getBooking(
             @RequestHeader("X-Sharer-User-Id") Long userId,
             @PathVariable Long bookingId
     ) {
@@ -49,7 +52,7 @@ public class BookingController extends ErrorHandler {
     }
 
     @GetMapping
-    public ResponseEntity<Object> getBookings(
+    public ResponseEntity<List<BookingDto>> getBookings(
             @RequestHeader("X-Sharer-User-Id") Long userId,
             @RequestParam(value = "state", defaultValue = "ALL") GetBookingState state
     ) {
@@ -57,7 +60,7 @@ public class BookingController extends ErrorHandler {
     }
 
     @GetMapping("/owner")
-    public ResponseEntity<Object> getOwnerBookings(
+    public ResponseEntity<List<BookingDto>> getOwnerBookings(
             @RequestHeader("X-Sharer-User-Id") Long userId,
             @RequestParam(value = "state", defaultValue = "ALL") GetBookingState state
     ) {

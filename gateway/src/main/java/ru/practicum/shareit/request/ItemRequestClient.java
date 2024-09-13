@@ -10,6 +10,9 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.util.DefaultUriBuilderFactory;
 import ru.practicum.shareit.client.BaseClient;
 import ru.practicum.shareit.request.dto.CreateItemRequestDto;
+import ru.practicum.shareit.request.dto.ItemRequestDto;
+
+import java.util.List;
 
 @Service
 public class ItemRequestClient extends BaseClient {
@@ -23,24 +26,24 @@ public class ItemRequestClient extends BaseClient {
                 .build());
     }
 
-    ResponseEntity<Object> createRequest(
+    public ResponseEntity<ItemRequestDto> createRequest(
             final Long userId,
             final CreateItemRequestDto createItemRequestDto
     ) {
         return post("", userId, createItemRequestDto);
     }
 
-    ResponseEntity<Object> getOwnRequests(
+    public ResponseEntity<List<ItemRequestDto>> getOwnRequests(
             final Long userId
     ) {
         return get("", userId);
     }
 
-    ResponseEntity<Object> getAllRequests() {
+    public ResponseEntity<List<ItemRequestDto>> getAllRequests() {
         return get("/all");
     }
 
-    ResponseEntity<Object> getRequestById(@PathVariable("requestId") final Long requestId) {
+    public ResponseEntity<ItemRequestDto> getRequestById(@PathVariable("requestId") final Long requestId) {
         return get("/" + requestId);
     }
 }

@@ -16,6 +16,8 @@ import ru.practicum.shareit.exception.ErrorHandler;
 import ru.practicum.shareit.user.dto.CreateUserDto;
 import ru.practicum.shareit.user.dto.UserDto;
 
+import java.util.List;
+
 @RestController
 @RequestMapping(path = "/users")
 @AllArgsConstructor
@@ -24,22 +26,22 @@ public class UserController extends ErrorHandler {
     private final UserClient userClient;
 
     @GetMapping
-    public ResponseEntity<Object> getUsers() {
+    public ResponseEntity<List<UserDto>> getUsers() {
         return userClient.getAll();
     }
 
     @GetMapping("/{userId}")
-    public ResponseEntity<Object> getById(@PathVariable final Long userId) {
+    public ResponseEntity<UserDto> getById(@PathVariable final Long userId) {
         return userClient.getById(userId);
     }
 
     @PostMapping
-    public ResponseEntity<Object> create(@Valid @RequestBody final CreateUserDto createUserDto) {
+    public ResponseEntity<UserDto> create(@Valid @RequestBody final CreateUserDto createUserDto) {
         return userClient.create(createUserDto);
     }
 
     @PatchMapping("/{userId}")
-    public ResponseEntity<Object> update(@PathVariable final Long userId, @Valid @RequestBody final UserDto userDto) {
+    public ResponseEntity<UserDto> update(@PathVariable final Long userId, @Valid @RequestBody final UserDto userDto) {
         return userClient.update(userId, userDto);
     }
 

@@ -13,74 +13,74 @@ import java.util.List;
 import java.util.Map;
 
 public class BaseClient {
-    protected final RestTemplate rest;
+    private final RestTemplate rest;
 
     public BaseClient(RestTemplate rest) {
         this.rest = rest;
     }
 
-    protected ResponseEntity<Object> get(String path) {
+    protected <T> ResponseEntity<T> get(String path) {
         return get(path, null, null);
     }
 
-    protected ResponseEntity<Object> get(String path, long userId) {
+    protected <T> ResponseEntity<T> get(String path, long userId) {
         return get(path, userId, null);
     }
 
-    protected ResponseEntity<Object> get(String path, Long userId, @Nullable Map<String, Object> parameters) {
-        return makeAndSendRequest(HttpMethod.GET, path, userId, parameters, null);
+    protected <T> ResponseEntity<T> get(String path, Long userId, @Nullable Map<String, Object> parameters) {
+        return (ResponseEntity<T>) makeAndSendRequest(HttpMethod.GET, path, userId, parameters, null);
     }
 
-    protected <T> ResponseEntity<Object> post(String path, T body) {
+    protected <B, T> ResponseEntity<T> post(String path, B body) {
         return post(path, null, null, body);
     }
 
-    protected <T> ResponseEntity<Object> post(String path, long userId, T body) {
+    protected <B, T> ResponseEntity<T> post(String path, long userId, B body) {
         return post(path, userId, null, body);
     }
 
-    protected <T> ResponseEntity<Object> post(String path, Long userId, @Nullable Map<String, Object> parameters, T body) {
-        return makeAndSendRequest(HttpMethod.POST, path, userId, parameters, body);
+    protected <B, T> ResponseEntity<T> post(String path, Long userId, @Nullable Map<String, Object> parameters, B body) {
+        return (ResponseEntity<T>) makeAndSendRequest(HttpMethod.POST, path, userId, parameters, body);
     }
 
-    protected <T> ResponseEntity<Object> put(String path, long userId, T body) {
+    protected <B, T> ResponseEntity<T> put(String path, long userId, B body) {
         return put(path, userId, null, body);
     }
 
-    protected <T> ResponseEntity<Object> put(String path, long userId, @Nullable Map<String, Object> parameters, T body) {
-        return makeAndSendRequest(HttpMethod.PUT, path, userId, parameters, body);
+    protected <B, T> ResponseEntity<T> put(String path, long userId, @Nullable Map<String, Object> parameters, B body) {
+        return (ResponseEntity<T>) makeAndSendRequest(HttpMethod.PUT, path, userId, parameters, body);
     }
 
-    protected <T> ResponseEntity<Object> patch(String path, T body) {
+    protected <B, T> ResponseEntity<T> patch(String path, B body) {
         return patch(path, null, null, body);
     }
 
-    protected <T> ResponseEntity<Object> patch(String path, long userId) {
+    protected <T> ResponseEntity<T> patch(String path, long userId) {
         return patch(path, userId, null, null);
     }
 
-    protected <T> ResponseEntity<Object> patch(String path, long userId, T body) {
+    protected <B, T> ResponseEntity<T> patch(String path, long userId, B body) {
         return patch(path, userId, null, body);
     }
 
-    protected <T> ResponseEntity<Object> patch(String path, Long userId, @Nullable Map<String, Object> parameters, T body) {
-        return makeAndSendRequest(HttpMethod.PATCH, path, userId, parameters, body);
+    protected <B, T> ResponseEntity<T> patch(String path, Long userId, @Nullable Map<String, Object> parameters, B body) {
+        return (ResponseEntity<T>) makeAndSendRequest(HttpMethod.PATCH, path, userId, parameters, body);
     }
 
-    protected ResponseEntity<Object> delete(String path) {
+    protected <T> ResponseEntity<T> delete(String path) {
         return delete(path, null, null);
     }
 
-    protected ResponseEntity<Object> delete(String path, long userId) {
+    protected <T> ResponseEntity<T> delete(String path, long userId) {
         return delete(path, userId, null);
     }
 
-    protected ResponseEntity<Object> delete(String path, Long userId, @Nullable Map<String, Object> parameters) {
-        return makeAndSendRequest(HttpMethod.DELETE, path, userId, parameters, null);
+    protected <T> ResponseEntity<T> delete(String path, Long userId, @Nullable Map<String, Object> parameters) {
+        return (ResponseEntity<T>) makeAndSendRequest(HttpMethod.DELETE, path, userId, parameters, null);
     }
 
-    private <T> ResponseEntity<Object> makeAndSendRequest(HttpMethod method, String path, Long userId, @Nullable Map<String, Object> parameters, @Nullable T body) {
-        HttpEntity<T> requestEntity = new HttpEntity<>(body, defaultHeaders(userId));
+    private <B> ResponseEntity<Object> makeAndSendRequest(HttpMethod method, String path, Long userId, @Nullable Map<String, Object> parameters, @Nullable B body) {
+        HttpEntity<B> requestEntity = new HttpEntity<>(body, defaultHeaders(userId));
 
         ResponseEntity<Object> shareitServerResponse;
         try {

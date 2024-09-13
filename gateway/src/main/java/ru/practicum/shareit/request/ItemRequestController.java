@@ -13,6 +13,9 @@ import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import ru.practicum.shareit.exception.ErrorHandler;
 import ru.practicum.shareit.request.dto.CreateItemRequestDto;
+import ru.practicum.shareit.request.dto.ItemRequestDto;
+
+import java.util.List;
 
 @Controller
 @RequestMapping(path = "/requests")
@@ -22,7 +25,7 @@ public class ItemRequestController extends ErrorHandler {
     private final ItemRequestClient itemRequestClient;
 
     @PostMapping
-    ResponseEntity<Object> createRequest(
+    ResponseEntity<ItemRequestDto> createRequest(
             @RequestHeader("X-Sharer-User-Id") Long userId,
             @RequestBody @Valid final CreateItemRequestDto createItemRequestDto
     ) {
@@ -30,19 +33,19 @@ public class ItemRequestController extends ErrorHandler {
     }
 
     @GetMapping
-    ResponseEntity<Object> getOwnRequests(
+    ResponseEntity<List<ItemRequestDto>> getOwnRequests(
             @RequestHeader("X-Sharer-User-Id") final Long userId
     ) {
         return itemRequestClient.getOwnRequests(userId);
     }
 
     @GetMapping("/all")
-    ResponseEntity<Object> getAllRequests() {
+    ResponseEntity<List<ItemRequestDto>> getAllRequests() {
         return itemRequestClient.getAllRequests();
     }
 
     @GetMapping("/{requestId}")
-    ResponseEntity<Object> getRequestById(@PathVariable("requestId") final Long requestId) {
+    ResponseEntity<ItemRequestDto> getRequestById(@PathVariable("requestId") final Long requestId) {
         return itemRequestClient.getRequestById(requestId);
     }
 }
